@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS USERS;
+
+CREATE TABLE USERS (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    USERNAME VARCHAR(50) UNIQUE NOT NULL,
+    PASSWORD VARCHAR(50) NOT NULL,
+    ROLE VARCHAR(20) NOT NULL
+);
+
+INSERT INTO USERS(username, password, role) 
+    VALUES ('testUser1', '12345', 'ADMIN');
+INSERT INTO USERS(username, password, role)
+    VALUES ('testUser2', '12345', 'OTTB_USER');
+INSERT INTO USERS(username, password, role)
+    VALUES ('testUser3', '12345', 'USER');

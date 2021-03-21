@@ -1,0 +1,10 @@
+#пример запроса на логин
+POST http://localhost:8080/devlogin
+Content-Type: application/json
+
+{
+  "username": "testUser1",
+  "password": "12345"
+}
+
+###

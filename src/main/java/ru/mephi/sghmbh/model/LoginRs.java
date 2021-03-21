@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ExampleModel {
-    private String name;
+public class LoginRs {
+    private RoleEnum role;
 }
