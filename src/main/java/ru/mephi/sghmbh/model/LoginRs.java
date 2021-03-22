@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class LoginRs {
-    private RoleEnum role;
+    private String id;
 }

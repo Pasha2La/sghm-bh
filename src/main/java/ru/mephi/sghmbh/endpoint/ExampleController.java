@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.mephi.sghmbh.model.ExampleModel;
 import ru.mephi.sghmbh.service.ExampleService;
 
+@Deprecated
 @RestController
 @RequestMapping("/example")
 public class ExampleController {

@@ -2,24 +2,20 @@ package ru.mephi.sghmbh.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.mephi.sghmbh.UserRepository;
-import ru.mephi.sghmbh.model.RoleEnum;
-import ru.mephi.sghmbh.model.User;
 import ru.mephi.sghmbh.service.LoginService;
+import ru.mephi.sghmbh.service.UserService;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public LoginServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginServiceImpl(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    public RoleEnum login(String username, String password) {
-//        User user = userRepository.getUser(username, password);
-//        return user.getRole();
-        return RoleEnum.ADMIN;
+    public String login(String username, String password) {
+        return userService.getUserId(username, password);
     }
 }

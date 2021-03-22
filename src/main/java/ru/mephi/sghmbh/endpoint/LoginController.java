@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mephi.sghmbh.model.LoginRq;
 import ru.mephi.sghmbh.model.LoginRs;
-import ru.mephi.sghmbh.model.RoleEnum;
 import ru.mephi.sghmbh.service.LoginService;
 
 @RestController
@@ -24,10 +23,10 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<LoginRs> login(@RequestBody LoginRq request) {
         try {
-            RoleEnum role = loginService.login(request.getUsername(), request.getPassword());
+            String id = loginService.login(request.getUsername(), request.getPassword());
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new LoginRs(role));
+                    .body(new LoginRs(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(null);
