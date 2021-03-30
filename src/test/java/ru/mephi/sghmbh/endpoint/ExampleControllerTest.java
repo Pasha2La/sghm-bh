@@ -8,6 +8,7 @@ import ru.mephi.sghmbh.model.ExampleModel;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Deprecated
 @SpringBootTest
 public class ExampleControllerTest {
     @Autowired
