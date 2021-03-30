@@ -13,3 +13,8 @@ GET http://localhost:8080/user/info?id=20ffb2dc-8b4b-11eb-a995-b3373ebc289e
 Content-Type: application/json
 
 ###
+
+GET http://localhost:8080/table?id=4e938f2a-9145-11eb-b903-97e42ad2b3c4
+Content-Type: application/json
+
+###

@@ -17,7 +17,7 @@ public class StructureElementRepositoryTest {
 
     @Test
     public void getByVirtualTableIdTest() {
-        List<StructureElementDto> result = repository.getByVirtualTableId("850109d0-98c2-4cd8-a283-b0d2c085bdf6");
+        List<StructureElementDto> result = repository.getByVirtualTableId("4e938f2a-9145-11eb-b903-97e42ad2b3c4");
         assertNotNull(result);
         assertEquals(5, result.size());
     }

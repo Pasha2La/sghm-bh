@@ -36,7 +36,7 @@ public class StructureElementRepository {
                 "SELECT * FROM public.\"STRUCTURE_ELEMENTS\"" +
                         "WHERE \"STRUCTURE_ELEMENTS\".\"VIRTUAL_TABLE_ID\"::TEXT = (:VIRTUAL_TABLE_ID)",
                 params,
-                new StructureElementWithLinksRowMapper());
+                new StructureElementRowMapper());
     }
 
     public List<StructureElementDto> getRootVirtualTableId(String virtualTableId) {

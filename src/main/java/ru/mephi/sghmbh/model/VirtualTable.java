@@ -12,9 +12,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StructureElement {
+public class VirtualTable {
     private String name;
-    private List<StructureElement> children;
+    private String organization;
     private Date creationDate;
     private Date modifiedDate;
+    private List<StructureElement> folderStructure;
 }

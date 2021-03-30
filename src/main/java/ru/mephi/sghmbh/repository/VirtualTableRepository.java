@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ru.mephi.sghmbh.model.RoleEnum;
 import ru.mephi.sghmbh.model.dto.VirtualTableDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 
 @Repository
 public class VirtualTableRepository {
@@ -19,13 +19,18 @@ public class VirtualTableRepository {
     private final static String MODIFIED_DATE_COLUMN = "MODIFIED_DATE";
 
     private NamedParameterJdbcTemplate jdbcTemplate;
-    private StructureElementRepository structureElementRepository;
 
     @Autowired
-    public VirtualTableRepository(NamedParameterJdbcTemplate jdbcTemplate,
-                                  StructureElementRepository structureElementRepository) {
+    public VirtualTableRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.structureElementRepository = structureElementRepository;
+    }
+
+    public VirtualTableDto getById(String virtualTableId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT * FROM public.\"VIRTUAL_TABLES\" " +
+                        "WHERE \"VIRTUAL_TABLES\".\"ID\"::TEXT = (:ID)",
+                Collections.singletonMap(ID_COLUMN, virtualTableId),
+                new VirtualTableRowMapper());
     }
 
     private static class VirtualTableRowMapper implements RowMapper<VirtualTableDto> {
