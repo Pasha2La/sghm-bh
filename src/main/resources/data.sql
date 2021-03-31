@@ -119,3 +119,58 @@ VALUES ('75ee965e-e852-4321-9e66-acd494aae3fb', '4e204e42-033b-4a91-84dc-3d540dc
 INSERT INTO public."STRUCTURE_ELEMENT_LINKS"(
     "ID", "PARENT_ID", "CHILD_ID")
 VALUES ('68cda95f-776a-4b86-b53e-ed7c38b72618', '9db1bffb-2482-4e0b-a708-4b77ac625772', '5fcc1dbd-4de8-4c67-999e-992cca66cd90');
+
+
+-- шаблон виртуального стола
+INSERT INTO public."VIRTUAL_TABLES"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "ORGANIZATION")
+VALUES ('0af7d6dc-e657-475f-aecd-9047e358bb40', 'template', current_timestamp, current_timestamp, 'all')
+
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('09cc737c-9f37-4c90-b932-6075d87f7af9', 'element1', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'Y');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('7a064c8d-ed32-48c3-a59f-9a6f07b28c37', 'element2', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'Y');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('ded08507-b249-42b8-9632-e4bfc1b17a94', 'element3', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'Y');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('015a585d-12a0-4187-80e9-cfc98395000c', 'element4', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'Y');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('6d69a277-bbaa-4048-87b6-c8caa79f5d31', 'element5', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'Y');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('368eceb1-efcd-45c3-97e0-aabd332ab371', 'element1.1', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'N');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('1f6dcb6d-88b1-4e70-904e-0bb94edd6d40', 'element1.2', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'N');
+
+INSERT INTO public."STRUCTURE_ELEMENTS"(
+    "ID", "NAME", "CREATION_DATE", "MODIFIED_DATE", "VIRTUAL_TABLE_ID", "IS_ROOT")
+VALUES ('185c0528-2fc1-4892-a8dd-76ec6f53c13e', 'element1.1.1', current_timestamp, current_timestamp, '0af7d6dc-e657-475f-aecd-9047e358bb40', 'N');
+
+-- cвязи в шаблоне виртуального стола
+
+INSERT INTO public."STRUCTURE_ELEMENT_LINKS"(
+    "ID", "PARENT_ID", "CHILD_ID")
+VALUES ('9c9b7fa0-b0aa-4758-b690-bcab1bb9ce0f', '09cc737c-9f37-4c90-b932-6075d87f7af9', '368eceb1-efcd-45c3-97e0-aabd332ab371');
+
+INSERT INTO public."STRUCTURE_ELEMENT_LINKS"(
+    "ID", "PARENT_ID", "CHILD_ID")
+VALUES ('ae9af710-db49-44ec-b124-33dc749fc31f', '09cc737c-9f37-4c90-b932-6075d87f7af9', '1f6dcb6d-88b1-4e70-904e-0bb94edd6d40');
+
+INSERT INTO public."STRUCTURE_ELEMENT_LINKS"(
+    "ID", "PARENT_ID", "CHILD_ID")
+VALUES ('3512aee1-de1f-441d-b8f9-08a845eb557f', '368eceb1-efcd-45c3-97e0-aabd332ab371', '185c0528-2fc1-4892-a8dd-76ec6f53c13e');
+
+

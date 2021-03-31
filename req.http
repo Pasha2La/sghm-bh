@@ -18,3 +18,8 @@ GET http://localhost:8080/table?id=4e938f2a-9145-11eb-b903-97e42ad2b3c4
 Content-Type: application/json
 
 ###
+
+GET http://localhost:8080/template
+Content-Type: application/json
+
+###
