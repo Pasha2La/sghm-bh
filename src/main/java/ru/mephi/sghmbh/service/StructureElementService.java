@@ -7,4 +7,5 @@ import java.util.List;
 public interface StructureElementService {
     List<StructureElement> getByVirtualTableId(String virtualTableId);
     boolean deleteByVirtualTableId(String virtualTableId);
+    void insertRootWithChildrenElement(List<StructureElement> element, String virtualTableId);
 }

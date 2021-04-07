@@ -3,14 +3,12 @@ package ru.mephi.sghmbh.repository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ru.mephi.sghmbh.model.StructureElement;
 import ru.mephi.sghmbh.model.dto.StructureElementDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class StructureElementRepository {
@@ -61,21 +59,20 @@ public class StructureElementRepository {
     public boolean deleteByVirtualTableId(String virtualTableId) {
         List<StructureElementDto> elements = getByVirtualTableId(virtualTableId);
         for (StructureElementDto element: elements) {
-            if (!deleteById(element.getId()) || (!deleteByIdFromTableLinks(element.getId()))) {
-                return false;
-            }
+            deleteById(element.getId());
+            deleteByIdFromTableLinks(element.getId());
         }
         return true;
     }
 
-    public boolean deleteById(String structureElementId) {
+    private boolean deleteById(String structureElementId) {
         Map<String, String> params = new HashMap<>();
         params.put(ID_COLUMN, structureElementId);
         return jdbcTemplate.update("DELETE FROM \"STRUCTURE_ELEMENTS\"" +
                 "WHERE \"STRUCTURE_ELEMENTS\".\"ID\"::TEXT = (:ID)", params) == 1;
     }
 
-    public boolean deleteByIdFromTableLinks(String structureElementId) {
+    private boolean deleteByIdFromTableLinks(String structureElementId) {
         Map<String, String> params = new HashMap<>();
 
         params.put(PARENT_ID_COLUMN, structureElementId);
@@ -86,6 +83,57 @@ public class StructureElementRepository {
                 params) == 1;
     }
 
+    public void insertRootElements(List<StructureElement> elements, String virtualTableId) {
+        for (StructureElement element: elements) {
+            UUID id = insertElement(element, virtualTableId, "Y");
+            if (element.getChildren() != null) {
+                for (StructureElement child : element.getChildren()) {
+                    recourseAddChildElements(child, id, virtualTableId);
+                }
+            }
+        }
+    }
+
+    public UUID insertElement(StructureElement element, String virtualTableId, String isRoot) {
+        Map<String, Object> params = new HashMap<>();
+        UUID id = UUID.randomUUID();
+        UUID virtualTableIdUUID = UUID.fromString(virtualTableId);
+        params.put(ID_COLUMN, id);
+        params.put(NAME_COLUMN, element.getName());
+        params.put(CREATION_DATE_COLUMN, element.getCreationDate());
+        params.put(MODIFIED_DATE_COLUMN, element.getModifiedDate());
+        params.put(VIRTUAL_TABLE_ID_COLUMN, virtualTableIdUUID);
+        params.put(IS_ROOT_COLUMN, isRoot);
+        jdbcTemplate.update("INSERT INTO \"STRUCTURE_ELEMENTS\"(\"ID\", \"NAME\", \"CREATION_DATE\", " +
+                "\"MODIFIED_DATE\", \"VIRTUAL_TABLE_ID\", \"IS_ROOT\") VALUES ((:ID), (:NAME)," +
+                " (:CREATION_DATE), (:MODIFIED_DATE), (:VIRTUAL_TABLE_ID), (:IS_ROOT))", params);
+
+        return id;
+    }
+
+    public void insertLinkBetweenElements(UUID parentId, UUID childId) {
+        Map<String, Object> params = new HashMap<>();
+        UUID id = UUID.randomUUID();
+        params.put(ID_COLUMN, id);
+        params.put(PARENT_ID_COLUMN, parentId);
+        params.put(CHILD_ID_COLUMN, childId);
+        jdbcTemplate.update("INSERT INTO \"STRUCTURE_ELEMENT_LINKS\"(" +
+                "\"ID\", \"PARENT_ID\", \"CHILD_ID\") VALUES ((:ID), (:PARENT_ID), (:CHILD_ID))",
+                params);
+    }
+
+    private void recourseAddChildElements(StructureElement element, UUID parentId, String virtualTableId) {
+        UUID thisId = insertElement(element, virtualTableId, "N");
+        List<StructureElement> children = element.getChildren();
+        if (children == null) {
+            insertLinkBetweenElements(parentId, thisId);
+        } else {
+            for (StructureElement child: children) {
+                recourseAddChildElements(child, thisId, virtualTableId);
+            }
+            insertLinkBetweenElements(parentId, thisId);
+        }
+    }
 
     private static class StructureElementWithLinksRowMapper implements RowMapper<StructureElementDto> {
 

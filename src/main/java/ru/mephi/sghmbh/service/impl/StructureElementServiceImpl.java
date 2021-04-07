@@ -42,6 +42,11 @@ public class StructureElementServiceImpl implements StructureElementService {
     }
 
     @Override
+    public void insertRootWithChildrenElement(List<StructureElement> element, String virtualTableId) {
+        repository.insertRootElements(element, virtualTableId);
+    }
+
+    @Override
     public boolean deleteByVirtualTableId(String virtualTableId) {
         return repository.deleteByVirtualTableId(virtualTableId);
     }

@@ -4,6 +4,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.mephi.sghmbh.mapper.TemplateMapper;
+import ru.mephi.sghmbh.model.StructureElement;
 import ru.mephi.sghmbh.model.Template;
 import ru.mephi.sghmbh.model.dto.TemplateDto;
 import ru.mephi.sghmbh.repository.TemplateRepository;
@@ -41,5 +42,7 @@ public class TemplateServiceImpl implements TemplateService {
         } else {
             System.out.println("Процесс удаления шаблона виртуального стола запущен...");
         }
-    }
+        structureElementService.insertRootWithChildrenElement(template.getFolderStructure(), templateId);
+        System.out.println("Обновлен шаблон виртуального стола");
+     }
 }
