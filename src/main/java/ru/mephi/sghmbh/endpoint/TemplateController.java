@@ -24,4 +24,9 @@ public class TemplateController {
     public void updateTemplate(@RequestBody Template request) {
         service.updateTemplate(request);
     }
+
+    @DeleteMapping("")
+    public void deleteTemplate() {
+        service.deleteTemplate();
+    }
 }

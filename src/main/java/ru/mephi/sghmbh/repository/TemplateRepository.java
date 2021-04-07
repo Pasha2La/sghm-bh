@@ -35,6 +35,13 @@ public class TemplateRepository {
                 new TemplateRowMapper());
     }
 
+    public void deleteTemplate() {
+        jdbcTemplate.update(
+                "DELETE FROM public.\"VIRTUAL_TABLES\" " +
+                        "WHERE \"VIRTUAL_TABLES\".\"NAME\" = (:NAME)",
+                Collections.singletonMap(NAME_COLUMN, TEMPLATE_NAME));
+    }
+
     private static class TemplateRowMapper implements RowMapper<TemplateDto> {
 
         @Override
