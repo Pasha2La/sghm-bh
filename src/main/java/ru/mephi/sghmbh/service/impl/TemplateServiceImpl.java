@@ -47,4 +47,11 @@ public class TemplateServiceImpl implements TemplateService {
         structureElementService.deleteByVirtualTableId(templateId);
         repository.deleteTemplate();
     }
+
+    @Override
+    public void createTemplate(Template template) {
+        repository.createTemplate();
+        String templateId = repository.getTemplate().getId();
+        structureElementService.insertRootWithChildrenElement(template.getFolderStructure(), templateId);
+    }
 }

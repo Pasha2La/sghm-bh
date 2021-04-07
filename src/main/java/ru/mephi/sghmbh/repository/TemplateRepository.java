@@ -8,7 +8,7 @@ import ru.mephi.sghmbh.model.dto.TemplateDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
+import java.util.*;
 
 @Repository
 public class TemplateRepository {
@@ -40,6 +40,23 @@ public class TemplateRepository {
                 "DELETE FROM public.\"VIRTUAL_TABLES\" " +
                         "WHERE \"VIRTUAL_TABLES\".\"NAME\" = (:NAME)",
                 Collections.singletonMap(NAME_COLUMN, TEMPLATE_NAME));
+    }
+
+    public void createTemplate() {
+        Map<String, Object> params = new HashMap<>();
+        UUID id = UUID.randomUUID();
+        Date currentDate = new Date();
+
+        params.put(ID_COLUMN, id);
+        params.put(NAME_COLUMN, TEMPLATE_NAME);
+        params.put(CREATION_DATE_COLUMN, currentDate);
+        params.put(MODIFIED_DATE_COLUMN, currentDate);
+        params.put(ORGANIZATION_COLUMN, "all");
+
+        jdbcTemplate.update("INSERT INTO \"VIRTUAL_TABLES\" (\"ID\", \"NAME\", \"CREATION_DATE\", \"MODIFIED_DATE\", " +
+                "\"ORGANIZATION\") VALUES ((:ID), (:NAME), (:CREATION_DATE), (:MODIFIED_DATE), (:ORGANIZATION))", params);
+
+
     }
 
     private static class TemplateRowMapper implements RowMapper<TemplateDto> {

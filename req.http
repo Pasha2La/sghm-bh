@@ -89,3 +89,66 @@ Content-Type: application/json
 ###
 DELETE http://localhost:8080/template
 Content-Type: application/json
+
+###
+POST http://localhost:8080/template
+Content-Type: application/json
+
+{
+  "name": "template",
+  "organization": "all",
+  "creationDate": "2021-03-31T14:14:04.015+00:00",
+  "modifiedDate": "2021-03-31T14:14:04.015+00:00",
+  "folderStructure": [
+    {
+      "name": "element1",
+      "children": [
+        {
+          "name": "element1.1",
+          "children": [
+            {
+              "name": "element1.1.1",
+              "children": null,
+              "creationDate": "2021-03-31T14:21:37.430+00:00",
+              "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+            }
+          ],
+          "creationDate": "2021-03-31T14:21:37.430+00:00",
+          "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+        },
+        {
+          "name": "element1.2",
+          "children": null,
+          "creationDate": "2021-03-31T14:21:37.430+00:00",
+          "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+        }
+      ],
+      "creationDate": "2021-03-31T14:21:37.430+00:00",
+      "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+    },
+    {
+      "name": "element2",
+      "children": null,
+      "creationDate": "2021-03-31T14:21:37.430+00:00",
+      "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+    },
+    {
+      "name": "element3",
+      "children": null,
+      "creationDate": "2021-03-31T14:21:37.430+00:00",
+      "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+    },
+    {
+      "name": "element4",
+      "children": null,
+      "creationDate": "2021-03-31T14:21:37.430+00:00",
+      "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+    },
+    {
+      "name": "element5",
+      "children": null,
+      "creationDate": "2021-03-31T14:21:37.430+00:00",
+      "modifiedDate": "2021-03-31T14:21:37.430+00:00"
+    }
+  ]
+}

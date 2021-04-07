@@ -7,4 +7,5 @@ public interface TemplateService {
     Template getTemplate();
     void updateTemplate(Template template);
     void deleteTemplate();
+    void createTemplate(Template template);
 }

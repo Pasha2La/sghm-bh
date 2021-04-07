@@ -29,4 +29,9 @@ public class TemplateController {
     public void deleteTemplate() {
         service.deleteTemplate();
     }
+
+    @PostMapping("")
+    public void createTemplate(@RequestBody Template request) {
+        service.createTemplate(request);
+    }
 }
