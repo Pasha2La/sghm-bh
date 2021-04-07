@@ -41,6 +41,11 @@ public class StructureElementServiceImpl implements StructureElementService {
         return result;
     }
 
+    @Override
+    public boolean deleteByVirtualTableId(String virtualTableId) {
+        return repository.deleteByVirtualTableId(virtualTableId);
+    }
+
     private StructureElement formTree(StructureElementDto currentElement, List<StructureElementDto> unattachedChildren) {
         if (CollectionUtils.isEmpty(unattachedChildren) || ObjectUtils.isEmpty(currentElement)) {
             return mapper.fromDto(currentElement);

@@ -58,6 +58,35 @@ public class StructureElementRepository {
                 new StructureElementWithLinksRowMapper());
     }
 
+    public boolean deleteByVirtualTableId(String virtualTableId) {
+        List<StructureElementDto> elements = getByVirtualTableId(virtualTableId);
+        for (StructureElementDto element: elements) {
+            if (!deleteById(element.getId()) || (!deleteByIdFromTableLinks(element.getId()))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean deleteById(String structureElementId) {
+        Map<String, String> params = new HashMap<>();
+        params.put(ID_COLUMN, structureElementId);
+        return jdbcTemplate.update("DELETE FROM \"STRUCTURE_ELEMENTS\"" +
+                "WHERE \"STRUCTURE_ELEMENTS\".\"ID\"::TEXT = (:ID)", params) == 1;
+    }
+
+    public boolean deleteByIdFromTableLinks(String structureElementId) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put(PARENT_ID_COLUMN, structureElementId);
+        params.put(CHILD_ID_COLUMN, structureElementId);
+        return jdbcTemplate.update("DELETE FROM \"STRUCTURE_ELEMENT_LINKS\"" +
+                "WHERE \"STRUCTURE_ELEMENT_LINKS\".\"CHILD_ID\"::TEXT = (:CHILD_ID) OR " +
+                        "\"STRUCTURE_ELEMENT_LINKS\".\"PARENT_ID\"::TEXT = (:PARENT_ID)",
+                params) == 1;
+    }
+
+
     private static class StructureElementWithLinksRowMapper implements RowMapper<StructureElementDto> {
 
         @Override

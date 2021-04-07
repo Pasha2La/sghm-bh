@@ -30,4 +30,16 @@ public class TemplateServiceImpl implements TemplateService {
         template.setFolderStructure(structureElementService.getByVirtualTableId(templateDto.getId()));
         return template;
     }
+
+    @Override
+    public void updateTemplate(Template template) {
+        String templateId = repository.getTemplate().getId();
+        // удаляем шаблон ко всем чертям, да я знаю, Паша, ты меня убьешь!
+        // а еще убьешь за отсутствие нормального логгера ((
+        if (!structureElementService.deleteByVirtualTableId(templateId)) {
+            System.out.println("Ошибка при удалении шаблона виртуального стола");
+        } else {
+            System.out.println("Процесс удаления шаблона виртуального стола запущен...");
+        }
+    }
 }

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StructureElementService {
     List<StructureElement> getByVirtualTableId(String virtualTableId);
+    boolean deleteByVirtualTableId(String virtualTableId);
 }
