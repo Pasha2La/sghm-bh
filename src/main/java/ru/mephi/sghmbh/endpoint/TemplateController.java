@@ -20,7 +20,7 @@ public class TemplateController {
         return service.getTemplate();
     }
 
-    @PostMapping("")
+    @PutMapping("")
     public void updateTemplate(@RequestBody Template request) {
         service.updateTemplate(request);
     }
